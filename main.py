@@ -11,12 +11,42 @@ def exibir_menu():
     print("0 - Sair")
 
 
+def adicionar():
+    titulo = input("Título da tarefa: ").strip()
+    if not titulo:
+        print("O título não pode ficar vazio.")
+        return
+    prioridade = input("Prioridade (baixa/media/alta) [media]: ").strip().lower()
+    if prioridade == "":
+        prioridade = "media"
+    if prioridade not in ("baixa", "media", "alta"):
+        print("Prioridade inválida.")
+        return
+    banco.adicionar_tarefa(titulo, prioridade)
+    print("Tarefa adicionada!")
+
+
+def listar():
+    tarefas = banco.listar_tarefas()
+    if not tarefas:
+        print("Nenhuma tarefa cadastrada.")
+        return
+    print("\n--- Suas tarefas ---")
+    for id_tarefa, titulo, prioridade, status, criada_em in tarefas:
+        marca = "[x]" if status == "concluida" else "[ ]"
+        print(f"{id_tarefa} {marca} ({prioridade}) {titulo} - {criada_em}")
+
+
 def main():
     banco.criar_tabela()
     while True:
         exibir_menu()
         opcao = input("Escolha uma opção: ")
-        if opcao == "0":
+        if opcao == "1":
+            adicionar()
+        elif opcao == "2":
+            listar()
+        elif opcao == "0":
             print("Até mais!")
             break
         else:
