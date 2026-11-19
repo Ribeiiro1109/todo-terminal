@@ -11,6 +11,10 @@ def exibir_menu():
     print("0 - Sair")
 
 
+def pausar():
+    input("\nPressione Enter para continuar...")
+
+
 def adicionar():
     titulo = input("Título da tarefa: ").strip()
     if not titulo:
@@ -44,8 +48,10 @@ def main():
         opcao = input("Escolha uma opção: ")
         if opcao == "1":
             adicionar()
+            pausar()
         elif opcao == "2":
             listar()
+            pausar()
         elif opcao == "0":
             print("Até mais!")
             break
